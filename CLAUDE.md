@@ -21,11 +21,21 @@ cargo build --release
 # Run on Linux
 ./target/release/cat-finder ~/Pictures
 
+# Test a single image
+./scripts/run.sh samples/one.jpg --verbose
+
 # Run tests (uses samples/ directory)
 ./scripts/test.sh
 
 # Download YOLO model if missing
 ./scripts/download_models.sh
+
+# Find duplicate images
+./target/release/find-duplicates samples/one.jpg ~/Pictures --verbose
+
+# Demo: search for cat images in a directory (default: ~/Downloads)
+./scripts/demo.sh
+./scripts/demo.sh ~/Pictures
 ```
 
 ## Architecture
@@ -42,9 +52,15 @@ cargo build --release
 3. YOLOv8 output is `[1, 84, 8400]` where 84 = 4 bbox coords + 80 COCO class scores
 4. Filters for class ID 15 (cat) with confidence above threshold (default 0.25)
 
+### Output Streams
+
+- **stdout**: Paths of images containing cats (for piping to other tools)
+- **stderr**: Debug info, model loading messages, progress when `--verbose`
+
 ### Key Constants
 
 - `CAT_CLASS_ID = 15` in COCO class ordering
+- Default confidence threshold: 0.25
 - Default input size: 640x640
 - Supported image formats: jpg, jpeg, png, gif, bmp, webp, tiff
 
