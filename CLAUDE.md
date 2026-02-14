@@ -33,9 +33,10 @@ cargo build --release
 # Find duplicate images
 ./target/release/find-duplicates samples/one.jpg ~/Pictures --verbose
 
-# Demo: search for cat images in a directory (default: ~/Downloads)
-./scripts/demo.sh
-./scripts/demo.sh ~/Pictures
+# Demo: search for cat images in a directory (default: samples/)
+./scripts/demo.sh                  # Uses samples/ (same as web demo)
+./scripts/demo.sh ~/Downloads      # Search Downloads folder
+./scripts/demo.sh ~/Pictures       # Search Pictures folder
 ```
 
 ## Architecture

@@ -2,7 +2,12 @@
 
 # Demo script: search a directory for cat images
 # Usage: ./scripts/demo.sh [directory]
-# Default: ~/Downloads
+# Default: samples/ (same as web demo)
+#
+# Examples:
+#   ./scripts/demo.sh                  # Search samples/
+#   ./scripts/demo.sh ~/Downloads      # Search your Downloads folder
+#   ./scripts/demo.sh ~/Pictures       # Search your Pictures folder
 
 # Set the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -14,8 +19,8 @@ export DYLD_LIBRARY_PATH="${PROJECT_DIR}/target/release"
 # Default model path
 DEFAULT_MODEL="${PROJECT_DIR}/models/yolov8n.onnx"
 
-# Target directory (default: ~/Downloads)
-TARGET_DIR="${1:-$HOME/Downloads}"
+# Target directory (default: samples/ - same images as web demo)
+TARGET_DIR="${1:-${PROJECT_DIR}/samples}"
 
 # Check if the binary exists
 if [ ! -f "${PROJECT_DIR}/target/release/cat-finder" ]; then
