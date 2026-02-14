@@ -101,6 +101,21 @@ Run the download script:
 ./scripts/download_models.sh
 ```
 
+## Testing
+
+Run the test script to verify the installation:
+
+```bash
+./scripts/test.sh
+```
+
+**Expected results:**
+- 10 sample images in `samples/`
+- 7 images contain cats (should be detected)
+- 3 images do not contain cats (`two.jpg`, `small.jpg`, `tiny.jpg`)
+
+A successful test shows: `Images with cats: 7`
+
 ## Development
 
 Built with:

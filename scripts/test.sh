@@ -2,6 +2,11 @@
 
 # Test script for cat-finder
 # Uses the samples directory for quick testing
+#
+# Expected results:
+#   - 10 total images in samples/
+#   - 7 images contain cats (should be detected)
+#   - 3 images do not contain cats (two.jpg, small.jpg, tiny.jpg)
 
 # Set the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
