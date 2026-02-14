@@ -2,6 +2,8 @@
 
 A Rust CLI tool that scans directories for photos containing cats using YOLO object detection.
 
+![Cat Finder Demo](docs/demo-screenshot.png)
+
 ## Quick Start
 
 ```bash
@@ -82,6 +84,18 @@ The tool uses YOLOv8n (nano) by default, which can detect 80 object classes incl
 ### Detection Classes
 The model can detect: person, bicycle, car, motorcycle, airplane, bus, train, truck, boat, traffic light, fire hydrant, stop sign, parking meter, bench, bird, **cat**, dog, horse, sheep, cow, elephant, bear, zebra, giraffe, and many more.
 
+### Accuracy Considerations
+
+Detection accuracy is not 100%. The model may miss some cats or occasionally produce false positives. Factors that affect detection:
+
+- **Image quality**: Blurry, low-resolution, or poorly lit photos reduce detection confidence
+- **Artistic styles**: Highly stylized illustrations, cartoons, or abstract art may not be recognized as cats since the model was trained primarily on photographs
+- **Partial visibility**: Cats that are partially obscured, cropped, or very small in the frame may not be detected
+- **Unusual poses**: Cats in atypical positions or angles may be harder to recognize
+- **Confidence threshold**: The default threshold (0.25) balances precision and recall; adjust with `--confidence` for your use case
+
+For best results, use clear photographs where cats are reasonably visible and occupy a meaningful portion of the frame.
+
 ## Troubleshooting
 
 ### macOS: Library not loaded error
@@ -110,11 +124,11 @@ Run the test script to verify the installation:
 ```
 
 **Expected results:**
-- 19 sample images in `samples/`
-- 10 images contain cats (should be detected)
-- 9 images do not contain cats (`two.jpg`, `small.jpg`, `tiny.jpg`, `notcat_*.jpg`)
+- 20 sample images in `samples/`
+- 9 images contain cats (should be detected)
+- 11 images do not contain cats (`two.jpg`, `notcat_*.jpg`)
 
-A successful test shows: `Images with cats: 10`
+A successful test shows: `Images with cats: 9`
 
 ## Development
 

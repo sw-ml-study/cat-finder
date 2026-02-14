@@ -4,9 +4,9 @@
 # Uses the samples directory for quick testing
 #
 # Expected results (at default confidence 0.25):
-#   - 19 total images in samples/
-#   - 10 images contain cats (should be detected)
-#   - 9 images do not contain cats (two.jpg, small.jpg, tiny.jpg, notcat_*.jpg)
+#   - 20 total images in samples/
+#   - 9 images contain cats (should be detected)
+#   - 11 images do not contain cats (two.jpg, notcat_*.jpg)
 
 # Set the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

@@ -22,6 +22,9 @@ HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html>
 <head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>Cat Finder Demo</title>
     <style>
         * { box-sizing: border-box; }
@@ -175,14 +178,15 @@ HTML_TEMPLATE = """
         let catCount = 0;
         let nocatCount = 0;
 
-        // Build grid
+        // Build grid with cache-busting timestamps
         const grid = document.getElementById('grid');
+        const ts = Date.now();
         images.forEach(img => {
             const card = document.createElement('div');
             card.className = 'card';
             card.id = 'card-' + img.id;
             card.innerHTML = `
-                <img class="thumb" src="/image/${img.filename}" alt="${img.filename}">
+                <img class="thumb" src="/image/${img.filename}?ts=${ts}" alt="${img.filename}">
                 <div class="spinner" id="spinner-${img.id}"></div>
                 <div class="badge" id="badge-${img.id}"></div>
                 <div class="info">${img.filename}</div>
@@ -282,10 +286,15 @@ def index():
 
 @app.route('/image/<path:filename>')
 def serve_image(filename):
-    # Handle nested paths
+    # Handle nested paths (strip query params)
+    filename = filename.split('?')[0]
     for img_path in SAMPLES_DIR.rglob(filename):
         if img_path.is_file():
-            return send_from_directory(img_path.parent, img_path.name)
+            response = send_from_directory(img_path.parent, img_path.name)
+            response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+            response.headers['Pragma'] = 'no-cache'
+            response.headers['Expires'] = '0'
+            return response
     return "Not found", 404
 
 @app.route('/detect')
