@@ -125,7 +125,7 @@ fn main() -> Result<()> {
         // Get file size
         if let Ok(metadata) = fs::metadata(path) {
             let size = metadata.len();
-            files_by_size.entry(size).or_insert_with(Vec::new).push(path.to_path_buf());
+            files_by_size.entry(size).or_default().push(path.to_path_buf());
         }
     }
 

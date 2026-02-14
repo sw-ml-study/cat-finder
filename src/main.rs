@@ -2,7 +2,7 @@ use anyhow::{Context, Result};
 use chrono::{DateTime, Local};
 use clap::Parser;
 use image::DynamicImage;
-use ndarray::{Array, ArrayBase, IxDyn, OwnedRepr};
+use ndarray::{Array, IxDyn};
 use ort::{Environment, Session, SessionBuilder, Value};
 use std::fs;
 use std::path::{Path, PathBuf};
@@ -170,42 +170,6 @@ impl YoloCatDetector {
 
         input
     }
-
-    fn has_cat_detection(&self, output: &ArrayBase<OwnedRepr<f32>, IxDyn>) -> bool {
-        // Tiny YOLOv3 with NMS outputs: [num_detections, 6]
-        // Each detection: [x1, y1, x2, y2, confidence, class_id]
-
-        // Try to get a 2D view if possible
-        if let Some(data) = output.as_slice() {
-            // The model outputs detections in batches of 6 values
-            for chunk in data.chunks(6) {
-                if chunk.len() >= 6 {
-                    let class_id = chunk[5] as usize;
-                    let confidence = chunk[4];
-
-                    // Check if this is a cat detection with sufficient confidence
-                    if class_id == CAT_CLASS_ID && confidence > self.confidence_threshold {
-                        return true;
-                    }
-                }
-            }
-        } else {
-            // Fallback: try to interpret as 2D array
-            let shape = output.shape();
-            if shape.len() == 2 && shape[1] >= 6 {
-                for i in 0..shape[0] {
-                    let class_id = output[[i, 5]] as usize;
-                    let confidence = output[[i, 4]];
-
-                    if class_id == CAT_CLASS_ID && confidence > self.confidence_threshold {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        false
-    }
 }
 
 fn get_image_timestamp(path: &Path) -> Option<(DateTime<Local>, char)> {
@@ -217,7 +181,7 @@ fn get_image_timestamp(path: &Path) -> Option<(DateTime<Local>, char)> {
 }
 
 fn is_image_file(path: &Path) -> bool {
-    path.extension().map_or(false, |ext| {
+    path.extension().is_some_and(|ext| {
         let ext = ext.to_string_lossy().to_lowercase();
         matches!(
             ext.as_str(),
