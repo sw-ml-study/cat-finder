@@ -1,0 +1,27 @@
+# Rust build artifacts
+/target/
+**/*.rs.bk
+*.pdb
+
+# Model files (large binary files)
+/models/*.onnx
+/models/*.pt
+/models/*.onnx.tar.gz
+/models/*.zip
+
+# Keep the models directory but not its contents
+!/models/.gitkeep
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Test images (optional)
+# /test_images/
