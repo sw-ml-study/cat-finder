@@ -5,8 +5,11 @@
 #
 # Expected results (at default confidence 0.25):
 #   - 20 total images in samples/
-#   - 9 images depict cats, but only 7 detected (2 artistic images not recognized)
+#   - 9 images depict cats
 #   - 11 images do not contain cats (two.jpg, notcat_*.jpg)
+#
+# Actual detection: 7 of 9 cat images (model misses 2 artistic/stylized images)
+# This demonstrates the model's limitations, not 100% accuracy.
 
 # Set the directory of this script
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
