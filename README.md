@@ -110,11 +110,11 @@ Run the test script to verify the installation:
 ```
 
 **Expected results:**
-- 10 sample images in `samples/`
-- 7 images contain cats (should be detected)
-- 3 images do not contain cats (`two.jpg`, `small.jpg`, `tiny.jpg`)
+- 19 sample images in `samples/`
+- 10 images contain cats (should be detected)
+- 9 images do not contain cats (`two.jpg`, `small.jpg`, `tiny.jpg`, `notcat_*.jpg`)
 
-A successful test shows: `Images with cats: 7`
+A successful test shows: `Images with cats: 10`
 
 ## Development
 

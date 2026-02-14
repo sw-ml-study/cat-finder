@@ -10,8 +10,7 @@ PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
 # Set library path for ONNX Runtime on macOS
 export DYLD_LIBRARY_PATH="${PROJECT_DIR}/target/release"
 
-# Default values
-DEFAULT_PATH="${1:-$PROJECT_DIR/test_images}"
+# Default model path
 DEFAULT_MODEL="${PROJECT_DIR}/models/yolov8n.onnx"
 
 # Check if the binary exists
