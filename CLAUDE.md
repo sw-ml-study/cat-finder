@@ -48,6 +48,31 @@ cargo build --release
 - Default input size: 640x640
 - Supported image formats: jpg, jpeg, png, gif, bmp, webp, tiff
 
+## Web Demo
+
+A Flask-based web UI for visualizing detection in real-time:
+
+```bash
+# Requires Flask in a Python venv
+source .venv/bin/activate
+pip install flask
+
+# Run the demo server
+python demo/server.py
+# Open http://localhost:5001
+```
+
+The demo displays sample images as thumbnails and updates each with a green checkmark (cat) or red X (not cat) as detection runs.
+
+## Detection Limitations
+
+The model doesn't achieve 100% accuracy. Known failure cases:
+
+- **Artistic/stylized images**: Mosaic art, oil paintings, or heavily stylized illustrations may not be recognized even if they clearly depict cats to humans
+- **Anthropomorphized cats**: Cats in clothing, walking upright, or in other unnatural poses confuse the model
+- **Very small cats**: Cats that occupy a tiny portion of the image may fall below detection thresholds
+- **Blurry/low-quality images**: Poor image quality reduces confidence scores
+
 ## macOS Notes
 
 ONNX Runtime shared libraries require `DYLD_LIBRARY_PATH=target/release`. The `scripts/run.sh` wrapper handles this automatically. The `.cargo/config.toml` also sets rpath flags for the build.

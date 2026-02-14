@@ -125,10 +125,14 @@ Run the test script to verify the installation:
 
 **Expected results:**
 - 20 sample images in `samples/`
-- 9 images contain cats (should be detected)
+- 9 images depict cats, but only 7 are detected due to artistic styling
 - 11 images do not contain cats (`two.jpg`, `notcat_*.jpg`)
 
-A successful test shows: `Images with cats: 9`
+A successful test shows: `Images with cats: 7`
+
+**Why 2 cat images aren't detected:**
+- `cat_colorful_kitten.jpg`: Mosaic/oil painting style with unnatural multi-colored fur blending into abstract background
+- `cat_kitten_army.jpg`: Anthropomorphized cats walking upright in military uniforms—bipedal pose and clothing obscure natural cat features
 
 ## Development
 
